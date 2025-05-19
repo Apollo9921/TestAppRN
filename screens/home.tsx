@@ -1,7 +1,6 @@
 import ListUsers from "@/components/ListUsers";
 import { Begin } from "@/interfaces/users";
-import { getListUsers } from "@/services/api";
-import { useEffect, useState } from "react";
+import getListUsers from "@/services/getListUsers";
 import { FlatList, Text, View } from "react-native";
 
 interface Data {
@@ -28,29 +27,9 @@ const Home = ({ userData }: Data) => {
 }
 
 const Index = () => {
-  const [userData, setUserData] = useState<Begin | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const {users, isLoading, isError, error} = getListUsers();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await getListUsers();
-        setUserData(response);
-        setLoading(false);
-        setError(null);
-      } catch (err: any) {
-        setError(err);
-        setLoading(false);
-        console.error("Error fetching users:", err?.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
         <View className="bg-[purple] flex-1 p-[30]">
           <Text className="text-white">Loading users...</Text>
@@ -58,22 +37,16 @@ const Index = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
         <View className="bg-[purple] flex-1 p-[30]">
-          <Text className="text-white">Error loading users</Text>
+          <Text className="text-white">Error loading users {error?.message}</Text>
         </View>
     );
   }
 
-  if (userData) {
-    return <Home userData={userData} />; // Pass the fetched data as a prop
-  }
-
   return (
-      <View className="bg-[purple] flex-1 p-[30]">
-        <Text className="text-white">No data loaded.</Text>
-      </View>
+    <Home userData={users} />
   );
 };
 

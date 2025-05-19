@@ -1,34 +1,24 @@
 import ListUsers from "@/components/ListUsers";
-import { Begin, User } from "@/interfaces/users";
-import { getListUsers } from "@/services/api";
-import { useEffect, useState } from "react";
+import { User } from "@/interfaces/users";
+import getListUsers from "@/services/getListUsers";
+import { useState } from "react";
 import { FlatList, TextInput, View } from "react-native";
 
 
 const Search = () => {
-    const [userData, setUserData] = useState<Begin | null>(null);
     const [filteredUsers, setFiltered] = useState<User[]>();
     const [search, setSearch] = useState("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await getListUsers();
-            setUserData(response);
-          } catch (err: any) {
-            console.error("Error fetching users:", err?.message);
-          }
-        };
-    
-        fetchData();
-    }, []);
+    const {users} = getListUsers();
 
     function handleSearch(query: string) {
-        setSearch(query);
-        const filtered = userData?.data.filter(user => 
-            user.email.toLowerCase().includes(query.toLowerCase())
-        )
-        setFiltered(filtered);
+        if(users) {
+            setSearch(query);
+            const filtered = users?.data.filter(user => 
+                user.email.toLowerCase().includes(query.toLowerCase())
+            )
+            setFiltered(filtered);
+        }
     }
 
     return (

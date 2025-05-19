@@ -1,15 +1,14 @@
 import { Begin } from '@/interfaces/users';
+import axios from 'axios';
 
-export const getListUsers = async () => {
-  const url = "https://reqres.in/api/users?page=2";
-  const response = (await fetch(url, {
-    headers: {
-      "x-api-key": "reqres-free-v1"
-    },
-  }));
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+const BASE_URL = 'https://reqres.in/api/users?page=2';
+
+export const getApi = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}`);
+    const data: Begin = response.data;
+    return data;
+  } catch (error) {
+    throw error;
   }
-  const data: Begin = await response.json();
-  return data;
 };
