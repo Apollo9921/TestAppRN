@@ -1,7 +1,7 @@
 import ListUsers from "@/components/ListUsers";
 import { Begin } from "@/interfaces/users";
 import getListUsers from "@/services/getListUsers";
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
 interface Data {
     userData: Begin
@@ -31,16 +31,16 @@ const Index = () => {
 
   if (isLoading) {
     return (
-        <View className="bg-[purple] flex-1 p-[30]">
-          <Text className="text-white">Loading users...</Text>
+        <View className="bg-[purple] flex-1 p-[30] justify-center">
+          <ActivityIndicator size="large" color="#ffffff" />
         </View>
     );
   }
 
   if (isError) {
     return (
-        <View className="bg-[purple] flex-1 p-[30]">
-          <Text className="text-white">Error loading users {error?.message}</Text>
+        <View className="bg-[purple] flex-1 p-[30] justify-center">
+          <Text className="text-white text-center">Error loading users {error?.message}</Text>
         </View>
     );
   }
