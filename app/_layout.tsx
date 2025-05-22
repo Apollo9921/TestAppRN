@@ -1,6 +1,6 @@
-import Tabs from "@/navigation/tabs";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as LocalAuthentication from "expo-local-authentication";
+import { Stack } from 'expo-router';
 import { useState } from "react";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import './globals.css';
@@ -45,8 +45,11 @@ export default function RootLayout() {
   if(authenticated || !hasBiometrics) {
     return (
       <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <Tabs />
+        <SafeAreaProvider>            
+          <Stack>      
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />      
+            <Stack.Screen name="screens/settings" options={{ headerShown:false}} />
+          </Stack>      
         </SafeAreaProvider>
       </QueryClientProvider>
     );

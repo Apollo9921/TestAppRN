@@ -1,10 +1,11 @@
 import * as ImagePicker from 'expo-image-picker';
+import { useRouter } from "expo-router";
 import React, { useState } from 'react';
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 
 const Profile = () => {
+    const router = useRouter();
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
     const pickImageAsync = async () => {
@@ -74,16 +75,19 @@ const Profile = () => {
     }
 
     return(
-        <SafeAreaProvider>
-            <View className="bg-[purple] flex-1 p-[30]">
-                <OptionsLayout />
-                <Button 
-                    onPress={pickImageAsync}
-                    title={"Select Image"} 
-                    color={"#222222"}
-                />
-            </View>
-        </SafeAreaProvider>
+        <View className="bg-[purple] flex-1 p-[30]">
+            <OptionsLayout />
+            <Button 
+                onPress={pickImageAsync}
+                title={"Select Image"} 
+                color={"#222222"}
+            />
+            <Button
+                onPress={() => router.push("/screens/settings")}
+                title={"Go to Settings"}
+                color={"#444444"}
+            />
+        </View>
     );
 }
 
