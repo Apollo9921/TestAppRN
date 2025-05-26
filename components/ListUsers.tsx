@@ -9,7 +9,7 @@ const ListNotes = ({ email, first_name, last_name, avatar }: User) => {
             <View className='flex-row flex-wrap items-center'>
                 <Image 
                     source={{uri: avatar}} 
-                    resizeMode='contain' 
+                    resizeMode='cover' 
                     style={{ width: '30%', height: undefined, aspectRatio: 1 }}
                     className='overflow-hidden rounded-full' 
                 />

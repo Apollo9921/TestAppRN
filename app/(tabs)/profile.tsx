@@ -1,3 +1,4 @@
+import ImageSelected from '@/components/ImageSelected';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from "expo-router";
 import React, { useState } from 'react';
@@ -52,7 +53,7 @@ const Profile = () => {
                 data={options}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => 
-                    <TouchableOpacity onPress={() => setOption(item.id)}>
+                    <TouchableOpacity onPress={() => setOption(item.id)} activeOpacity={1}>
                         {(() => {
                             if (optionSelected != "" && optionSelected == item.id) {
                                 return(
@@ -77,6 +78,7 @@ const Profile = () => {
     return(
         <View className="bg-[purple] flex-1 p-[30]">
             <OptionsLayout />
+            <ImageSelected selectedImage={selectedImage} />
             <Button 
                 onPress={pickImageAsync}
                 title={"Select Image"} 
