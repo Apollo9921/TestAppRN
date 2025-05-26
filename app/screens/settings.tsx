@@ -61,7 +61,7 @@ const Settings = () => {
                     onValueChange={(value) => updateBiometricState(value)}
                     value={isEnabled}
                 />
-                <Text className="text-white font-sm text-xl">Activate Biometric</Text>
+                <Text className="text-white font-sm text-xl">Biometric Auth</Text>
             </View>            
         </View>
     );
